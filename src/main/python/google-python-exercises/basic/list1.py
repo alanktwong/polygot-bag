@@ -49,14 +49,8 @@ def front_x(words):
 # [(2, 2), (1, 3), (3, 4, 5), (1, 7)]
 # Hint: use a custom key= function to extract the last element from each tuple.
 def sort_last(tuples):
-  # +++your code here+++
-  keys = [ tuple[-1] for tuple in tuples ]
-  d = {}
-  for tuple in tuples:
-    d.setdefault(tuple[-1], []).append(tuple)
-  results = [ d[key] for key in sorted(d.iterkeys()) ]
-  flattenedResults = [item for sublist in results for item in sublist]
-  return flattenedResults
+  tuples.sort(key=lambda tuple:tuple[-1])
+  return tuples
 
 
 # Simple provided test() function used in main() to print
