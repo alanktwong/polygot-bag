@@ -2,6 +2,35 @@
 <!--
 @author awong
 @see http://www.steinbit.org/words/programming/setting-up-ant-for-your-scala-project
+
+Prerequisites:
+1) Install and configure Scala:
+Define and set the SCALA_HOME variable in the OS environment
+Update the PATH variable in the OS environment to include SCALA_HOME\bin directory
+
+2) Install and configure Ant:
+Define and set the ANT_HOME variable in the OS environment
+Update the PATH variable in the OS environment to include ANT_HOME\bin directory
+Optional: If you encounter memory problems, define and set ANT_OPTS=-Xmx500M with JVM memory configuration in the OS environment
+
+3) Install and configure Java:
+
+Define and set the JAVA_HOME variable in the OS environment
+Update the PATH variable in the OS environment to include JAVA_HOME\bin directory
+
+4) Find a suitable file structure for the project:
+project-name/
+  build/
+  lib/
+  src/
+  test/
+  build.xml
+
+5) Order of Ant targets:
+
+build <- package <- doc <- compile <- init
+clean <- init
+
 -->
  
 <project name="build_scala_with_ant" default="build" basedir=".">
