@@ -1,0 +1,80 @@
+#!/bin/bash
+#
+# Similar but not equivalent to gemfire-locator
+#
+#####################################################################
+LOCATOR_PORT="44444"
+
+LOCATOR_WORK_DIR="$GEMFIRE_WORK/current-locator"
+LOCATOR_WORK_DIR_LOG="$GEMFIRE_WORK/logs/locator"
+LOCATOR_SCRIPT="$GEMFIRE/bin/gemfire"
+
+LOCATOR_OPTIONS=''
+if [ -r "${LOCATOR_WORK_DIR}/locator.conf" ]; then
+  LOCATOR_OPTIONS=`cat ${LOCATOR_WORK_DIR}/locator.conf`
+fi
+
+#####################################################################
+## Source function library.
+
+# . /etc/init.d/functions
+
+
+RETVAL="0"
+
+# see http://osxdaily.com/2010/11/21/find-ip-address-mac/
+#IP_ADDRESS_ETH0=`/sbin/ifconfig utun0 | grep 'inet ' | cut -d: -f2 | awk '{print $2}'`
+# IP_ADDRESS_ETH0=`ipconfig getifaddr en1`
+#echo "Using IP_ADDRESS_ETH0: ${IP_ADDRESS_ETH0}"
+
+# See how we were called.
+function start() {
+    if [ ! -d "${LOCATOR_WORK_DIR_LOG}" ]; then
+        echo "Locator work dir missing: ${LOCATOR_WORK_DIR_LOG}"
+        RETVAL="0"
+    elif [ -f "${LOCATOR_WORK_DIR_LOG}/.locator" ]; then
+        echo ".locator exists and locator cannot be started"
+        RETVAL="0"
+    else
+        echo "Starting Gemfire locator: "
+        MY_LOCATOR_OPTIONS=`echo $LOCATOR_OPTIONS | sed 's/\n/ /g'`
+        echo "Using MY_LOCATOR_OPTIONS: ${MY_LOCATOR_OPTIONS}"
+        # $SU - $LOCATOR_USER -c "cd ${LOCATOR_WORK_DIR}; /bin/sh ${LOCATOR_SCRIPT} start-locator -address=${IP_ADDRESS_ETH0} -Dgemfire.bind-address=${IP_ADDRESS_ETH0} -port=${LOCATOR_PORT} -dir=${LOCATOR_WORK_DIR_LOG} -properties=${LOCATOR_WORK_DIR}/locator.properties ${MY_LOCATOR_OPTIONS}"
+        cd ${LOCATOR_WORK_DIR}
+        # /bin/sh ${LOCATOR_SCRIPT} start-locator -address=${IP_ADDRESS_ETH0} -Dgemfire.bind-address=${IP_ADDRESS_ETH0} -port=${LOCATOR_PORT} -dir=${LOCATOR_WORK_DIR_LOG} -properties=${LOCATOR_WORK_DIR}/locator.properties ${MY_LOCATOR_OPTIONS}
+        # /bin/sh ${LOCATOR_SCRIPT} start-locator -address=${IP_ADDRESS_ETH0} -Dgemfire.bind-address=${IP_ADDRESS_ETH0} -port=${LOCATOR_PORT} -dir=${LOCATOR_WORK_DIR_LOG} -properties=${LOCATOR_WORK_DIR}/locator.properties ${MY_LOCATOR_OPTIONS}
+        /bin/sh ${LOCATOR_SCRIPT} start-locator -port=${LOCATOR_PORT} -dir=${LOCATOR_WORK_DIR_LOG} -properties=${LOCATOR_WORK_DIR}/locator.properties ${MY_LOCATOR_OPTIONS}
+    fi
+}
+
+function stop() {
+    echo -n "Stopping ${LOCATOR_PROG}: "
+    if [ -f "${LOCATOR_WORK_DIR_LOG}/.locator" ]; then
+        ${LOCATOR_SCRIPT} stop-locator -port=${LOCATOR_PORT} -dir=${LOCATOR_WORK_DIR_LOG}
+    else
+        RETVAL="0"
+    fi
+}
+
+function usage()
+{
+   echo "Usage: $0 {start|stop}"
+   RETVAL="2"
+}
+
+# See how we were called.
+RETVAL="0"
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    *)
+      usage
+      ;;
+esac
+
+exit $RETVAL
+

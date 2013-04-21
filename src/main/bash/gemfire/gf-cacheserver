@@ -1,0 +1,73 @@
+#!/bin/bash
+#
+# Similar but not equivalent to gemfire-cacheserver
+# 
+#####################################################################
+CACHESERVER_WORK_DIR="$GEMFIRE_WORK/current-cacheserver"
+CACHESERVER_SCRIPT="$GEMFIRE/bin/cacheserver"
+CACHESERVER_CACHE_XML="$GEMFIRE_WORK/current-cacheserver/cache.xml"
+
+# see http://osxdaily.com/2010/11/21/find-ip-address-mac/
+# IP_ADDRESS_ETH0=`/sbin/ifconfig utun0 | grep 'inet ' | cut -d: -f2 | awk '{print $2}'`
+# IP_ADDRESS_ETH0=`ipconfig getifaddr en1`
+# echo "Using IP_ADDRESS_ETH0: ${IP_ADDRESS_ETH0}"
+
+CACHESERVER_OPTIONS=''
+if [ -r "${CACHESERVER_WORK_DIR}/cacheserver.conf" ]; then
+  CACHESERVER_OPTIONS=`cat ${CACHESERVER_WORK_DIR}/cacheserver.conf`
+fi
+
+#####################################################################
+## Source function library.
+
+function start() {
+    if [ ! -d "${CACHESERVER_WORK_DIR}" ]; then
+        echo "Cache server work dir missing: ${CACHESERVER_WORK_DIR}"
+        RETVAL="0"
+    elif [ -f "${CACHESERVER_WORK_DIR}/.cacheserver.ser" ]; then
+        echo ".cacheserver.ser exists and cacheserver cannot be started"
+        RETVAL="0"
+    else
+        echo "Starting cacheserver"
+        MY_CACHESERVER_OPTIONS=`echo $CACHESERVER_OPTIONS | sed -e 's/\n/ /g'`
+        echo "Using MY_CACHE_SERVER_OPTIONS: ${MY_CACHESERVER_OPTONS}"
+        # $SU - $CACHESERVER_USER -c "export CLASSPATH=${CLASSPATH}; /bin/sh ${CACHESERVER_SCRIPT} start -dir=${CACHESERVER_WORK_DIR} -J-Dgemfire.bind-address=${IP_ADDRESS_ETH0} ${MY_CACHESERVER_OPTIONS}"
+        CACHESERVER_JARS=`ls ${CACHESERVER_WORK_DIR}/lib/*.jar`
+        export MY_CLASSPATH=`echo $CACHESERVER_JARS | sed -e 's/ /:/g'`
+        export CLASSPATH=${MY_CLASSPATH}:$CATALINA_HOME/webapps/adidasweb/WEB-INF/lib/session-2.0.jar:$CLASSPATH
+        echo "Using CLASSPATH: ${CLASSPATH}"
+        # /bin/sh ${CACHESERVER_SCRIPT} start cache-xml-file=${CACHESERVER_CACHE_XML} -J-Dgemfire.bind-address=${IP_ADDRESS_ETH0} -dir=${CACHESERVER_WORK_DIR} ${MY_CACHESERVER_OPTIONS}
+        /bin/sh ${CACHESERVER_SCRIPT} start cache-xml-file=${CACHESERVER_CACHE_XML} -dir=${CACHESERVER_WORK_DIR} ${MY_CACHESERVER_OPTIONS}
+    fi
+}
+
+function stop() {
+    echo -n "Stopping ${CACHESERVER_PROG}: "
+    if [ -f "${CACHESERVER_WORK_DIR}/.cacheserver.ser" ]; then
+        /bin/sh ${CACHESERVER_SCRIPT} stop -dir=${CACHESERVER_WORK_DIR}
+    else
+        RETVAL="0"
+    fi
+}
+
+function usage() {
+   echo "Usage: $0 {start|stop}"
+   RETVAL="2"
+}
+
+# See how we were called.
+RETVAL="0"
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    *)
+      usage
+      ;;
+esac
+
+exit $RETVAL
+
