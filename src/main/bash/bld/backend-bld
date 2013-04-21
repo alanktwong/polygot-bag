@@ -1,0 +1,88 @@
+#!/bin/bash
+#
+#####################################################################
+WORKING_DIR=`pwd`
+
+#####################################################################
+
+RETVAL="0"
+
+# See how we were called.
+function clean() {
+    ant clean
+}
+
+function compile() {
+    ant all
+}
+
+function updatesystem() {
+    ant clean all updatesystem -Dtenant=master
+}
+
+function init() {
+    ant initialize
+}
+
+function populate() {
+    ant fixturedata sampledata
+}
+
+
+function all() {
+    ant clean all
+}
+
+function version() {
+    ant --version
+}
+
+function start() {
+    ./hybris/bin/platform/hybrisserver.sh debug
+}
+
+function usage()
+{
+    echo "Usage: build.sh ( commands ... )"
+    echo "commands:"
+    echo "  clean             Clean"
+    echo "  compile           Rebuild Hybris backend"
+    echo "  init              Refresh DB used by Hybris backend (depends on compile)"
+    echo "  populate          Populate DB used by Hybris backend (depends on init)"
+    echo "  start             Start Hybris backend"
+    echo "  all               Clean & rebuild Hybris backend & update master tenant"
+    echo "  version           What version of Ant are you running?"
+    exit 1
+}
+
+# See how we were called.
+RETVAL="0"
+case "$1" in
+    clean)
+        clean
+        ;;
+    compile)
+        compile
+        ;;
+    init)
+        init
+        ;;
+    populate)
+        populate
+        ;;
+    start)
+        start
+        ;;
+    version)
+        version
+        ;;
+    all)
+        all
+        ;;
+    *)
+        usage
+        ;;
+esac
+
+exit $RETVAL
+

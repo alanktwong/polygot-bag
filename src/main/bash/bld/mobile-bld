@@ -1,0 +1,96 @@
+#!/bin/bash
+#
+#####################################################################
+MAVEN="/usr/bin/mvn"
+WORKING_DIR=`pwd`
+
+#####################################################################
+
+RETVAL="0"
+
+# See how we were called.
+function clean() {
+  if [ -d $CATALINA_HOME/webapps/AdidasMobile ]; then
+    \rm -r $CATALINA_HOME/webapps/AdidasMobile
+  fi
+  $MAVEN -Pdefault clean -DskipTests=true
+}
+
+function compile() {
+  $MAVEN -Pdefault clean install -DskipTests=true
+}
+
+function unitTests() {
+  $MAVEN -Pdefault clean install
+}
+
+function all() {
+  if [ -d $CATALINA_HOME/webapps/AdidasMobile ]; then
+    \rm -r $CATALINA_HOME/webapps/AdidasMobile
+  fi
+  $MAVEN -Pdefault clean install -DskipTests=true
+  echo "----------------------------------------------------------------------"
+  echo "Copying target artifact to Tomcat"
+  cp $WORKING_DIR/target/AdidasMobile.war $CATALINA_HOME/webapps
+  cp -r $WORKING_DIR/target/AdidasMobile $CATALINA_HOME/webapps/AdidasMobile
+  echo "----------------------------------------------------------------------"
+  ls -alwG $CATALINA_HOME/webapps | grep 'war'
+}
+
+function version() {
+  $MAVEN --version
+}
+
+function start() {
+  $CATALINA_HOME/bin/catalina.sh run >> $CATALINA_HOME/logs/apps/adidasMobile.log &
+}
+
+function stop() {
+  $CATALINA_HOME/bin/catalina.sh stop
+}
+
+function usage()
+{
+  echo "Usage: build.sh ( commands ... )"
+  echo "commands:"
+  echo "  clean             Clean of artifacts for LOCAL"
+  echo "  compile           Clean/install of artifacts for LOCAL"
+  echo "  test              Clean/install for unit tests"
+  echo "  all               Clean, rebuild and then deploy artifacts to Tomcat local directory"
+  echo "  start             Start adidas web on Tomcat"
+  echo "  stop              Stop  adidas web on Tomcat"
+  echo "  version           What version of ant and/or maven are you running?"
+  exit 1
+}
+
+# See how we were called.
+RETVAL="0"
+case "$1" in
+  clean)
+    clean
+    ;;
+  compile)
+    compile
+    ;;
+  unit)
+    unitTests
+    ;;
+  version)
+    version
+    ;;
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  all)
+    all
+    ;;
+  *)
+    usage
+    ;;
+esac
+
+exit $RETVAL
+
