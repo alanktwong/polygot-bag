@@ -35,8 +35,8 @@ function start() {
         CACHESERVER_JARS=`ls ${CACHESERVER_WORK_DIR}/lib/*.jar`
         export MY_CLASSPATH=`echo $CACHESERVER_JARS | sed -e 's/ /:/g'`
         export CLASSPATH=${MY_CLASSPATH}:$CATALINA_HOME/webapps/adidasweb/WEB-INF/lib/session-2.0.jar:$CLASSPATH
-        echo "Using CLASSPATH: ${CLASSPATH}"
-        # /bin/sh ${CACHESERVER_SCRIPT} start cache-xml-file=${CACHESERVER_CACHE_XML} -J-Dgemfire.bind-address=${IP_ADDRESS_ETH0} -dir=${CACHESERVER_WORK_DIR} ${MY_CACHESERVER_OPTIONS}
+        echo "Using CLASSPATH:            ${CLASSPATH}"
+        echo "Using CACHESERVER_WORK_DIR: ${CACHESERVER_WORK_DIR}"
         /bin/sh ${CACHESERVER_SCRIPT} start cache-xml-file=${CACHESERVER_CACHE_XML} -dir=${CACHESERVER_WORK_DIR} ${MY_CACHESERVER_OPTIONS}
     fi
 }
@@ -50,8 +50,15 @@ function stop() {
     fi
 }
 
+function clean() {
+    echo -n "Cleaning cacheserver files: "
+    if [ -f "${CACHESERVER_WORK_DIR}/.cacheserver.ser" ]; then
+        \rm ${CACHESERVER_WORK_DIR}/.cacheserver.ser
+    fi
+}
+
 function usage() {
-   echo "Usage: $0 {start|stop}"
+   echo "Usage: $0 {start|clean|stop}"
    RETVAL="2"
 }
 
@@ -63,6 +70,9 @@ case "$1" in
         ;;
     stop)
         stop
+        ;;
+    clean)
+        clean
         ;;
     *)
       usage

@@ -42,7 +42,9 @@ function start() {
         # $SU - $LOCATOR_USER -c "cd ${LOCATOR_WORK_DIR}; /bin/sh ${LOCATOR_SCRIPT} start-locator -address=${IP_ADDRESS_ETH0} -Dgemfire.bind-address=${IP_ADDRESS_ETH0} -port=${LOCATOR_PORT} -dir=${LOCATOR_WORK_DIR_LOG} -properties=${LOCATOR_WORK_DIR}/locator.properties ${MY_LOCATOR_OPTIONS}"
         cd ${LOCATOR_WORK_DIR}
         # /bin/sh ${LOCATOR_SCRIPT} start-locator -address=${IP_ADDRESS_ETH0} -Dgemfire.bind-address=${IP_ADDRESS_ETH0} -port=${LOCATOR_PORT} -dir=${LOCATOR_WORK_DIR_LOG} -properties=${LOCATOR_WORK_DIR}/locator.properties ${MY_LOCATOR_OPTIONS}
-        # /bin/sh ${LOCATOR_SCRIPT} start-locator -address=${IP_ADDRESS_ETH0} -Dgemfire.bind-address=${IP_ADDRESS_ETH0} -port=${LOCATOR_PORT} -dir=${LOCATOR_WORK_DIR_LOG} -properties=${LOCATOR_WORK_DIR}/locator.properties ${MY_LOCATOR_OPTIONS}
+        echo "Using LOCATOR_PORT:         ${LOCATOR_PORT}"
+        echo "Using LOCATOR_WORK_DIR:     ${LOCATOR_WORK_DIR}"
+        echo "Using LOCATOR_WORK_DIR_LOG: ${LOCATOR_WORK_DIR_LOG}"
         /bin/sh ${LOCATOR_SCRIPT} start-locator -port=${LOCATOR_PORT} -dir=${LOCATOR_WORK_DIR_LOG} -properties=${LOCATOR_WORK_DIR}/locator.properties ${MY_LOCATOR_OPTIONS}
     fi
 }
@@ -56,9 +58,19 @@ function stop() {
     fi
 }
 
+function clean() {
+    echo -n "Cleaning locator files: "
+    if [ -f "${LOCATOR_WORK_DIR_LOG}/.locator" ]; then
+        \rm ${LOCATOR_WORK_DIR_LOG}/.locator
+    fi
+    if [ -f "${LOCATOR_WORK_DIR_LOG}/locator44444state.dat" ]; then
+        \rm ${LOCATOR_WORK_DIR_LOG}/locator44444state.dat
+    fi
+}
+
 function usage()
 {
-   echo "Usage: $0 {start|stop}"
+   echo "Usage: $0 {start|clean|stop}"
    RETVAL="2"
 }
 
@@ -67,6 +79,9 @@ RETVAL="0"
 case "$1" in
     start)
         start
+        ;;
+    clean)
+        clean
         ;;
     stop)
         stop
