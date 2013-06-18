@@ -90,9 +90,32 @@ bmiTell weight height
           normal = 25.0  
           fat = 30.0
 
+calcBmis :: (RealFloat a) => [(a, a)] -> [a]  
+calcBmis xs = [bmi w h | (w, h) <- xs]  
+    where bmi weight height = weight / height ^ 2
+
+-- let <bindings> in <expression>
 cylinder :: (RealFloat a) => a -> a -> a  
 cylinder r h = 
     let sideArea = 2 * pi * r * h  
         topArea = pi * r ^2 
     in  sideArea + 2 * topArea
+
+
+initials :: String -> String -> String  
+initials firstname lastname = [f] ++ ". " ++ [l] ++ "."  
+    where (f:_) = firstname  
+          (l:_) = lastname
+
+
+describeList :: [a] -> String
+describeList xs = "The list is " ++ case xs of [] -> "empty."  
+                                               [x] -> "a singleton list."   
+                                               xs -> "a longer list."
+
+describeList' :: [a] -> String  
+describeList' xs = "The list is " ++ what xs  
+    where what [] = "empty."  
+          what [x] = "a singleton list."  
+          what xs = "a longer list."
 
