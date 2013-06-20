@@ -6,6 +6,10 @@ From "Making Our Own Types and Typeclasses" chapter
 Typeclasses are like interfaces. A typeclass defines some behavior (like comparing for equality, comparing for ordering, enumeration) and then types that can behave in that way are made instances of that typeclass. The behavior of typeclasses is achieved by defining functions or just type declarations that we then implement. So when we say that a type is an instance of a typeclass, we mean that we can use the functions that the typeclass defines with that type.
 
 Typeclasses have pretty much nothing to do with classes in languages like Java or Python. This confuses many people, so forget everything you know about classes in imperative languages right now.
+
+Like we said, types are the labels of values and kinds are the labels of types and there are parallels between the two.
+":t a" yields the type
+":k a" yields the kind
 -}
 
 import qualified Data.Map as Map
@@ -119,6 +123,11 @@ treeElem x (Node a left right)
     | x < a  = treeElem x left  
     | x > a  = treeElem x right
 
+-- Functor is a typeclass which is more generic interface for map
+instance Functor Tree where  
+    fmap f EmptyTree = EmptyTree  
+    fmap f (Node x leftsub rightsub) = Node (f x) (fmap f leftsub) (fmap f rightsub)
+
 {-
 Here's an example of datatype implementing a typeclass.
 `class` is for defining new typeclasses and `instance` is for
@@ -178,6 +187,13 @@ instance YesNo TrafficLight where
 yesnoIf :: (YesNo y) => y -> a -> a -> a  
 yesnoIf yesnoVal yesResult noResult = if yesno yesnoVal then yesResult else noResult
 
+{-
+Don't really understand Haskell 'kinds'
+@see http://learnyouahaskell.com/making-our-own-types-and-typeclasses#kinds-and-some-type-foo
+
+class Tofu t where  
+    tofu :: j a -> t a j
 
 
+-}
 
