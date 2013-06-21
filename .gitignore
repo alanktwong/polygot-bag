@@ -1,3 +1,6 @@
 polygot-bag.tmproj
 target
 *.pyc
+*.o
+*.hi
+helloworld
