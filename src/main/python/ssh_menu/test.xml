@@ -1,0 +1,26 @@
+<servers>
+	<!--
+	client@id   must be unique to the client
+	client@name is optional and is just for documentation purposes
+	-->
+	<client id="1" name="testClient">
+		<environment name="testEnv">
+			<!--
+			server@hostname must be unique and non-blank to the environment
+			server@username and server@password is either empty and used by script or else you will be prompted for it
+			server/description is optional documentation echoed by script before attempting to log on
+			servers will be listed in menu by script in order
+			-->
+			<server hostname="dev1" username="username1" password="password1" >
+				<description>FE Dev</description>
+			</server>
+			<server hostname="dev2" username="username2" password="password2" />
+			<server hostname="dev3" username="" password="" />
+		</environment>
+	</client>
+	<client id="2" name="other">
+		<environment name="Test enviroment">
+			<server hostname="dev0" username="" password="" />
+		</environment>
+	</client>
+</servers>
