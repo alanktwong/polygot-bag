@@ -3,8 +3,8 @@
 	client@id   must be unique to the client
 	client@name is optional and is just for documentation purposes
 	-->
-	<client id="1" name="testClient">
-		<environment name="testEnv">
+	<client name="testClient">
+		<environment name="test1">
 			<!--
 			server@hostname must be unique and non-blank to the environment
 			server@username and server@password is either empty and used by script or else you will be prompted for it
@@ -18,8 +18,8 @@
 			<server hostname="dev3" username="" password="" />
 		</environment>
 	</client>
-	<client id="2" name="other">
-		<environment name="Test enviroment">
+	<client name="other">
+		<environment name="test2">
 			<server hostname="dev0" username="" password="" />
 		</environment>
 	</client>
