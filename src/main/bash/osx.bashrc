@@ -61,6 +61,9 @@ NC='\e[0m'          # No Color
 PS1='
 \[\e[0;31m\]$PWD\]
 \[\e[1;36m[\u@\h]  \[\e[0m\]'
+
+
+
 #===============================================================
 #
 # ALIASES AND FUNCTIONS
@@ -116,10 +119,10 @@ alias lu='ls -ltur'        # sort by and show access time, most recent last
 alias lt='ls -ltr'         # sort by date, most recent last
 alias lm='ls -al | more'   # pipe through 'more'
 alias lr='ls -lR'          # recursive ls
-
 alias tree='tree -Csu'     # nice alternative to 'recursive ls'
-# ----------------------------------------------------------------------------
 
+
+# ----------------------------------------------------------------------------
 # svn
 # ----------------------------------------------------------------------------
 # alias svn_add="svn st | grep ? | awk '{print \$2}' | xargs svn add"
