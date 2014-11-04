@@ -54,9 +54,11 @@ export SBT_HOME="$PROJECT_PATH/bin/sbt/current"
 export PATH="$PATH:$SBT_HOME/bin"
 
 # Tomcat stuff
-export TOMCAT_HOME="$PROJECT_PATH/bin/tomcat/current"
-export PATH="$PATH:$TOMCAT_HOME/bin"
+export CATALINA_HOME="$PROJECT_PATH/bin/tomcat/current"
+export PATH="$PATH:$CATALINA_HOME/bin"
 
+alias start_tomcat="$CATALINA_HOME/bin/catalina.sh start"
+alias stop_tomcat="$CATALINA_HOME/bin/catalina.sh stop"
 
 # jRuby stuff
 # export JRUBY_HOME=$HOME/projects/bin/jruby-0.9.2
@@ -89,8 +91,9 @@ alias doc="pushd $PROJECT_PATH/doc"
 
 alias fdhy="pushd $PROJECT_PATH/src/fdhybris/hybris-commerce-suite-5.3.0.0/hybris/bin/platform"
 
-alias start_mysql="sudo /Library/StartupItems/MySQLCOM/MySQLCOM start"
-alias stop_mysql="sudo /Library/StartupItems/MySQLCOM/MySQLCOM stop"
+MySQLCOM_HOME=/Library/StartupItems/MySQLCOM
+alias start_mysql="sudo $MySQLCOM_HOME/MySQLCOM start"
+alias stop_mysql="sudo $MySQLCOM_HOME/MySQLCOM stop"
 
 #-----#
 # X11 #
