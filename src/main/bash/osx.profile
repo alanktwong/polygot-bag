@@ -17,48 +17,42 @@ export PATH="$PATH:/opt/local/bin:/opt/local/sbin:$HOME/bin"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home
 export PATH="$JAVA_HOME/bin:$PATH"
 
-# MySQL stuff
 export MYSQL_HOME=/usr/local/mysql
-export PATH="$PATH:$MYSQL_HOME/bin"
-
 # Node.js stuff
 export NVM_DIR="$HOME/.nvm"
 export NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist
 # export NVM_SOURCE
 # export PROFILE
-
-# Scala stuff
+export HASKELL_HOME=/Library/Frameworks/GHC.framework/Versions/Current/usr
 export SCALA_HOME="$PROJECT_PATH/bin/scala/current"
-export PATH="$PATH:$SCALA_HOME/bin"
-
-# Groovy stuff
 export GROOVY_HOME="$PROJECT_PATH/bin/groovy/current"
-export PATH="$PATH:$GROOVY_HOME/bin"
+export PATH="$PATH:$MYSQL_HOME/bin:$SCALA_HOME/bin:$GROOVY_HOME/bin"
 
-# Ant stuff
 # alias ant=/usr/bin/ant
 export ANT_HOST_NAME=$HOST
 export ANT_HOME="$PROJECT_PATH/bin/ant/current"
-export PATH="$PATH:$ANT_HOME/bin"
-
-# Maven stuff
 export MAVEN_HOME="$PROJECT_PATH/bin/maven/current"
-export PATH="$PATH:$MAVEN_HOME/bin"
-
-# Maven stuff
 export GRADLE_HOME="$PROJECT_PATH/bin/gradle/current"
-export PATH="$PATH:$GRADLE_HOME/bin"
-
-# SBT stuff
 export SBT_HOME="$PROJECT_PATH/bin/sbt/current"
-export PATH="$PATH:$SBT_HOME/bin"
 
+export PATH="$PATH:$ANT_HOME/bin:$MAVEN_HOME/bin:$GRADLE_HOME/bin:$SBT_HOME/bin"
+
+export PLAY_HOME="$PROJECT_PATH/bin/play/current"
+export ACTIVATOR_HOME="$PROJECT_PATH/bin/activator/current"
 # Tomcat stuff
 export CATALINA_HOME="$PROJECT_PATH/bin/tomcat/current"
-export PATH="$PATH:$CATALINA_HOME/bin"
+export PATH="$PATH:$PLAY_HOME:$ACTIVATOR_HOME:$CATALINA_HOME/bin"
 
 alias start_tomcat="$CATALINA_HOME/bin/catalina.sh start"
 alias stop_tomcat="$CATALINA_HOME/bin/catalina.sh stop"
+
+export CASSANDRA_HOME="$PROJECT_PATH/bin/cassandra/current"
+export ELASTICSEARCH_HOME="$PROJECT_PATH/bin/elasticsearch/current"
+export MONGODB_HOME="$PROJECT_PATH/bin/mongodb/current"
+export REDIS_HOME="$PROJECT_PATH/bin/redis/current"
+export RIAK_HOME="$PROJECT_PATH/bin/riak/current"
+
+export PATH="$PATH:$CASSANDRA_HOME/bin:$ELASTICSEARCH_HOME/bin:$MONGODB_HOME/bin:$REDIS_HOME/bin:$RIAK_HOME/bin"
 
 # jRuby stuff
 # export JRUBY_HOME=$HOME/projects/bin/jruby-0.9.2
