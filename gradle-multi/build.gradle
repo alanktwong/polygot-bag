@@ -3,15 +3,19 @@ subprojects {
 	apply plugin: 'eclipse-wtp'
 	apply plugin: 'idea'
 
+	version = '0.1.0.0'
+	
 	repositories {
 		mavenCentral()
+		jcenter()
 	}
 	
 	dependencies {
+		compile 'org.hibernate:hibernate-core:3.6.7.Final'
+		compile 'org.springframework:spring-tx:3.2.8.RELEASE'
 		testCompile 'junit:junit:4.11'
 	}
 
-	version = '1.0'
 
 	jar {
 		manifest.attributes provider: 'gradle'

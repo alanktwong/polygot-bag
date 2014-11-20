@@ -1,2 +1,2 @@
 
-include "shared", "api", "services:webservice", "services:commons"
+include "shared", "api", "services:webapp", "services:webservice", "services:commons"

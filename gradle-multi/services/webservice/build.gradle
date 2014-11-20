@@ -3,7 +3,9 @@ apply plugin: 'war'
 version = '2.5'
 
 dependencies {
-    compile project(':shared'), 'commons-collections:commons-collections:3.2@jar', 'commons-io:commons-io:1.2', 'commons-lang:commons-lang:2.4@jar'
-    compile project(path: ':api', configuration: 'spi')
-    runtime project(':api')
+	compile project(':shared')
+	compile'commons-collections:commons-collections:3.2@jar', 'commons-io:commons-io:1.2', 'commons-lang:commons-lang:2.4@jar'
+	compile project(path: ':api', configuration: 'spi')
+	compile 'org.springframework:spring-webmvc:3.2.8.RELEASE'
+	runtime project(':api')
 }
