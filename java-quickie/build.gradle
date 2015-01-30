@@ -114,5 +114,6 @@ uploadArchives {
 	repositories {
 		flatDir {
 			dirs 'repos'
+		}
 	}
 }
