@@ -21,7 +21,7 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home
 export PATH="$JAVA_HOME/bin:$PATH"
 
 # Most of the SW installs are via homebrew
-export HOMEBREW_GITHUB_API_TOKEN="3ff6c88ce76061e0a8825c24f77ac9f2ffe98291"
+## export HOMEBREW_GITHUB_API_TOKEN="tbd"
 
 export MYSQL_HOME=/usr/local/mysql
 # Node.js stuff
