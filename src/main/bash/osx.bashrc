@@ -1,6 +1,8 @@
 #!/bin/sh
 #
 # ALIASES
+echo "starting .bashrc"
+
 alias reload="source $HOME/.bashrc"
 
 # Source global definitions
@@ -76,6 +78,7 @@ PS1='
 # examples.
 #
 #===============================================================
+echo "setting aliases"
 
 alias rm='rm -i'
 alias cp='cp -i'
@@ -136,6 +139,8 @@ alias tree='tree -Csu'     # nice alternative to 'recursive ls'
 # alias git_add_untracked="git sts | grep ?? | awk '{ print \$2 }' | xargs git add"
 # alias git_add_modified_only="git sts | grep 'M ' | awk '{ print \$2 }' | xargs git add"
 # ----------------------------------------------------------------------------
+
+echo "now setting up some bash functions"
 
 #-------------------------------------------------------------
 # File & string-related functions:
