@@ -1,8 +1,9 @@
 #!/bin/sh
 #
-# ALIASES
+
 echo "starting .bashrc"
 
+# ALIASES
 alias reload="source $HOME/.bashrc"
 
 # Source global definitions
@@ -78,7 +79,6 @@ PS1='
 # examples.
 #
 #===============================================================
-echo "setting aliases"
 
 alias rm='rm -i'
 alias cp='cp -i'

@@ -1,13 +1,19 @@
 #!/bin/sh 
 # Sets up PATHs
 #
-
 echo "starting .profile which will set environment variables like PATH"
 
-export HOST="messi"
+# export HOST="tbd"
+
 # general path munging
-PROJECT_PATH=$HOME/projects
-CELLAR_HOME=/usr/local/Cellar
+PROJECT_PATH="$HOME/projects"
+CELLAR_HOME="/usr/local/Cellar"
+
+export EDITOR="/usr/local/bin/mate -w"
+
+# Using http://www.jenv.be/ to manage multiple JDKs
+# export PATH="$HOME/.jenv/bin:$PATH"
+if which jenv > /dev/null; then eval "$(jenv init -)"; fi
 
 # equivalent to MacPorts Installer path modification
 export PATH="$PATH:/opt/local/bin:/opt/local/sbin:$HOME/bin"
@@ -17,51 +23,57 @@ export PATH="$PATH:/opt/local/bin:/opt/local/sbin:$HOME/bin"
 
 # Java stuff
 # export JAVA_HOME=/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home
+
+export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"
+alias jenv_set_java_home='export JAVA_HOME="$HOME/.jenv/versions/`jenv version-name`"'
+
 export PATH="$JAVA_HOME/bin:$PATH"
 
-# Most of the SW installs are via homebrew
-export HOMEBREW_GITHUB_API_TOKEN="3ff6c88ce76061e0a8825c24f77ac9f2ffe98291"
+# export HOMEBREW_GITHUB_API_TOKEN=""
 
-export MYSQL_HOME=/usr/local/mysql
+
+export MYSQL_HOME="/usr/local/mysql"
+export PATH="$PATH:$MYSQL_HOME/bin"
+
 # Node.js stuff
 export NVM_DIR="$HOME/.nvm"
 export NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist
 # export NVM_SOURCE
 # export PROFILE
-export HASKELL_HOME="/Library/Frameworks/GHC.framework/Versions/Current/usr"
-export SCALA_HOME="$CELLAR_HOME/scala/current"
+
+export HASKELL_HOME="/Library/Haskell/current"
+# Manage Scala versions using svm
+# http://scala.masanorihashimoto.com/2014/04/how-to-install-the-scala-version-manager-on-your-mac/
+export SCALA_HOME="$HOME/.svm/current/rt"
+
 export GROOVY_HOME="$CELLAR_HOME/groovy/current"
-export CLOJURE_HOME="$CELLAR_HOME/clojure/current"
-# Tomcat stuff
-export CATALINA_HOME="$PROJECT_PATH/bin/tomcat/current"
-
-alias start_tomcat="$CATALINA_HOME/bin/catalina.sh start"
-alias stop_tomcat="$CATALINA_HOME/bin/catalina.sh stop"
-
-export PATH="$PATH:$MYSQL_HOME/bin:$CATALINA_HOME/bin"
 
 # alias ant=/usr/bin/ant
 export ANT_HOST_NAME=$HOST
 export ANT_HOME="$CELLAR_HOME/ant/current"
 export MAVEN_HOME="$CELLAR_HOME/maven/current"
 export GRADLE_HOME="$CELLAR_HOME/gradle/current"
+
+export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
 export SBT_HOME="$CELLAR_HOME/sbt/current"
+
+export NODE_HOME="$CELLAR_HOME/node/current"
+
 
 export PLAY_HOME="$CELLAR_HOME/play/current"
 export ACTIVATOR_HOME="$CELLAR_HOME/typesafe-activator/current"
+# Tomcat stuff
+export CATALINA_HOME="$CELLAR_HOME/tomcat/current"
+export PATH="$PATH:$CATALINA_HOME/bin"
+
+alias start_tomcat="$CATALINA_HOME/bin/catalina start"
+alias stop_tomcat="$CATALINA_HOME/bin/catalina stop"
 
 export CASSANDRA_HOME="$CELLAR_HOME/cassandra/current"
+export ELASTICSEARCH_HOME="$CELLAR_HOME/elasticsearch/current"
 export MONGODB_HOME="$CELLAR_HOME/mongodb/current"
 export REDIS_HOME="$CELLAR_HOME/redis/current"
 export RIAK_HOME="$CELLAR_HOME/riak/current"
-export ELASTICSEARCH_HOME="$CELLAR_HOME/elasticsearch/current"
-export SOLR_HOME="$CELLAR_HOME/solr/current"
-
-
-export FD_LIBS="$PROJECT_PATH/src/fd/freshDirect/FreshDirect/lib"
-export WL_HOME="$PROJECT_PATH/bin/weblogic/current/wlserver/server"
-
 
 
 # jRuby stuff
@@ -93,14 +105,12 @@ export WL_HOME="$PROJECT_PATH/bin/weblogic/current/wlserver/server"
 alias src="pushd $PROJECT_PATH/src"
 alias doc="pushd $PROJECT_PATH/doc"
 
-alias fdhy="pushd $PROJECT_PATH/src/fdhybris/hybris-commerce-suite-5.3.0.0/hybris/bin/platform"
-alias fdhybris="pushd $PROJECT_PATH/src/fdhybris"
+# alias fdhy="pushd $PROJECT_PATH/src/fdhybris/hybris-commerce-suite-5.3.0.0/hybris/bin/platform"
 
 MySQLCOM_HOME=/Library/StartupItems/MySQLCOM
 alias start_mysql="sudo $MySQLCOM_HOME/MySQLCOM start"
 alias stop_mysql="sudo $MySQLCOM_HOME/MySQLCOM stop"
 
-alias svn17="/usr/bin/svn"
 #-----#
 # X11 #
 #-----#
