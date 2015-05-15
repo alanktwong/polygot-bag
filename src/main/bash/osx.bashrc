@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# ALIASES
+
 echo "starting .bashrc"
 
 alias reload="source $HOME/.bashrc"
@@ -302,5 +302,3 @@ function corename()   # Get name of app that created a corefile.
         echo -n $file : ; gdb --core=$file --batch | head -1
     done 
 }
-
-
