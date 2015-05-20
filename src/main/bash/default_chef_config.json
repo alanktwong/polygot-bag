@@ -1,0 +1,18 @@
+{
+  "localhost" : {
+      "hostname" : "{hostname}"
+  },
+  "homebrew" : {
+      "github_api_token" : "{api_token}"
+  },
+  "tk" : {
+    "nexus" : {
+      "url" : "https://{hostname}/{path}/{to}/{repo}",
+      "user" : "{username}",
+      "password" : "{password}"
+    },
+    "aem" : {
+      "license": "{license_key}"
+    }
+  }
+}

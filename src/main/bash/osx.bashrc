@@ -60,11 +60,16 @@ cyan='\e[0;36m'
 CYAN='\e[1;36m'
 NC='\e[0m'          # No Color
 
-PS1='
-\[\e[0;31m\]$PWD\]
-\[\e[1;36m[\u@\h]  \[\e[0m\]'
+# PS1='
+# \[\e[0;31m\]$PWD\]
+# \[\e[1;36m[\u@\h]  \[\e[0m\]'
 
-
+#prompt w/o colors
+# export PS1="\u@\h:\W \$ "
+#prompt w/o colors
+export PS1="\[\033[36m\]\u@\h:\[\033[31;1m\]\W\[\033[m\] \$ "
+# export CLICOLOR=1
+# export LSCOLORS=ExFxBxDxCxegedabagacad
 
 #===============================================================
 #
@@ -145,8 +150,6 @@ echo "now setting up some bash functions"
 #-------------------------------------------------------------
 # File & string-related functions:
 #-------------------------------------------------------------
-
-
 # Find a file with a pattern in name:
 function ff() { find . -type f -iname '*'$*'*' -ls ; }
 

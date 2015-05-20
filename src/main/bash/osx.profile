@@ -4,6 +4,7 @@
 echo "starting .profile which will set environment variables like PATH"
 
 export HOST="guardiola"
+# generate via http://stackoverflow.com/questions/20130681/setting-github-api-token-for-homebrew
 # export HOMEBREW_GITHUB_API_TOKEN="{token}"
 
 # Source global definitions
@@ -13,7 +14,7 @@ fi
 
 
 # general path munging
-PROJECT_PATH="$HOME/projects"
+PROJECTS="$HOME/projects"
 CELLAR_HOME="/usr/local/Cellar"
 
 export EDITOR="/usr/local/bin/mate -w"
@@ -113,27 +114,30 @@ export PATH="$PATH:$CHEF_HOME"
 # ----------------------------------------------------------------------------
 echo "starting convenience aliases for project work"
 
-alias src="pushd $PROJECT_PATH/src"
-alias doc="pushd $PROJECT_PATH/doc"
-alias lib="pushd $PROJECT_PATH/lib"
+export PROJECTS_SRC="$PROJECTS/src"
+alias src="pushd $PROJECTS/src"
+export PROJECTS_DOC="$PROJECTS/doc"
+alias doc="pushd $PROJECTS/doc"
+export PROJECTS_LIB="$PROJECTS/lib"
+alias lib="pushd $PROJECTS/lib"
 
 
-export TRAILS_HOME="$PROJECT_PATH/src/hybris-demo"
+export TRAILS_HOME="$PROJECTS_SRC/hybris-demo"
 alias trails="pushd $TRAILS_HOME/5.5.0.0/hybris/bin/platform"
 alias trails-oms="pushd $TRAILS_HOME/hybris-trails/merchandise-oms/oms-ext"
 alias trails-repo="pushd $TRAILS_HOME/hybris-trails"
 
 
-alias fdhy="pushd $PROJECT_PATH/src/fdhybris/hybris-commerce-suite-5.3.0.0/hybris/bin/platform"
+alias fdhy="pushd $PROJECTS_SRC/fdhybris/hybris-commerce-suite-5.3.0.0/hybris/bin/platform"
 
-export ANA_HOME="$PROJECT_PATH/src/alexAndAni"
+export ANA_HOME="$PROJECTS_SRC/alexAndAni"
 alias ana="pushd $ANA_HOME"
 export ANA_VM="$ANA_HOME/ana-vm"
 alias ana-vm="pushd $ANA_VM/vm"
 alias ana-hy="pushd $ANA_VM/codebase/ana-hybris"
 alias ana-hy-local="pushd $ANA_HOME/5.5.0.0/hybris/bin/platform"
 
-export DY_HOME="$PROJECT_PATH/src/davidYurman"
+export DY_HOME="$PROJECTS_SRC/davidYurman"
 alias dy="pushd $DY_HOME"
 export DY_VM="$DY_HOME/dy-vm"
 alias dy-vm="pushd $DY_VM/vm"
@@ -141,7 +145,7 @@ alias dy-hy="pushd $DY_HOME/5.1.1/hybris/bin/platform"
 alias dy-codebase="pushd $DY_VM/codebase"
 alias dy-aem="pushd $DY_VM/codebase/content"
 
-export COURSERA_HOME="$PROJECT_PATH/src/coursera-work"
+export COURSERA_HOME="$PROJECTS_SRC/coursera-work"
 alias coursera="pushd $COURSERA_HOME"
 export REACTIVE_HOME="$COURSERA_HOME/reactive/"
 alias reactive="pushd $REACTIVE_HOME"
@@ -159,7 +163,7 @@ export PATH="$PATH:/usr/X11R6/bin"
 # Use python virtual environment
 # export PYTHON_LIB="/Library/Frameworks/Python.framework/Versions/Current/lib/python2.7"
 # export PYTHON_PACKAGES="$PYTHON_LIB/site-packages"
-# export PYTHON_VENV="$PROJECT_PATH/bin/python_venv/epd"
+# export PYTHON_VENV="$PROJECTS/bin/python_venv/epd"
 #
 # modify Python's sys.path 
 #
