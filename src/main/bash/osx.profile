@@ -14,8 +14,8 @@ fi
 
 
 # general path munging
-PROJECTS="$HOME/projects"
-CELLAR_HOME="/usr/local/Cellar"
+export PROJECTS="$HOME/projects"
+export CELLAR_HOME="/usr/local/Cellar"
 
 export EDITOR="/usr/local/bin/mate -w"
 
@@ -72,11 +72,11 @@ export NODE_HOME="$CELLAR_HOME/node/current"
 export PLAY_HOME="$CELLAR_HOME/play/current"
 export ACTIVATOR_HOME="$CELLAR_HOME/typesafe-activator/current"
 # Tomcat stuff
-export CATALINA_HOME="$CELLAR_HOME/tomcat/current"
-export PATH="$PATH:$CATALINA_HOME/bin"
+# export CATALINA_HOME="$CELLAR_HOME/tomcat/current"
+# export PATH="$PATH:$CATALINA_HOME/bin"
 
-alias start_tomcat="$CATALINA_HOME/bin/catalina start"
-alias stop_tomcat="$CATALINA_HOME/bin/catalina stop"
+# alias start_tomcat="$CATALINA_HOME/bin/catalina start"
+# alias stop_tomcat="$CATALINA_HOME/bin/catalina stop"
 
 export CASSANDRA_HOME="$CELLAR_HOME/cassandra/current"
 export ELASTICSEARCH_HOME="$CELLAR_HOME/elasticsearch/current"
@@ -108,50 +108,11 @@ export PATH="$PATH:$CHEF_HOME"
 
 # GEOS_DIR
 # export GEOS_DIR=/opt/local/lib/geos-3.3.1
+# Source global definitions
 
-# ----------------------------------------------------------------------------
-# quick change for projects
-# ----------------------------------------------------------------------------
-echo "starting convenience aliases for project work"
-
-export PROJECTS_SRC="$PROJECTS/src"
-alias src="pushd $PROJECTS/src"
-export PROJECTS_DOC="$PROJECTS/doc"
-alias doc="pushd $PROJECTS/doc"
-export PROJECTS_LIB="$PROJECTS/lib"
-alias lib="pushd $PROJECTS/lib"
-
-
-export TRAILS_HOME="$PROJECTS_SRC/hybris-demo"
-alias trails="pushd $TRAILS_HOME/5.5.0.0/hybris/bin/platform"
-alias trails-oms="pushd $TRAILS_HOME/hybris-trails/merchandise-oms/oms-ext"
-alias trails-repo="pushd $TRAILS_HOME/hybris-trails"
-
-
-alias fdhy="pushd $PROJECTS_SRC/fdhybris/hybris-commerce-suite-5.3.0.0/hybris/bin/platform"
-
-export ANA_HOME="$PROJECTS_SRC/alexAndAni"
-alias ana="pushd $ANA_HOME"
-export ANA_VM="$ANA_HOME/ana-vm"
-alias ana-vm="pushd $ANA_VM/vm"
-alias ana-hy="pushd $ANA_VM/codebase/ana-hybris"
-alias ana-hy-local="pushd $ANA_HOME/5.5.0.0/hybris/bin/platform"
-
-export DY_HOME="$PROJECTS_SRC/davidYurman"
-alias dy="pushd $DY_HOME"
-export DY_VM="$DY_HOME/dy-vm"
-alias dy-vm="pushd $DY_VM/vm"
-alias dy-hy="pushd $DY_HOME/5.1.1/hybris/bin/platform"
-alias dy-codebase="pushd $DY_VM/codebase"
-alias dy-aem="pushd $DY_VM/codebase/content"
-
-export COURSERA_HOME="$PROJECTS_SRC/coursera-work"
-alias coursera="pushd $COURSERA_HOME"
-export REACTIVE_HOME="$COURSERA_HOME/reactive/"
-alias reactive="pushd $REACTIVE_HOME"
-
-alias start_mysql="sudo $MYSQL_HOME/support-files/mysql.server start"
-alias stop_mysql="sudo $MYSQL_HOME/support-files/mysql.server stop"
+if [ -f $HOME/.bash_aliases ]; then
+	. $HOME/.bash_aliases
+fi
 
 #-----#
 # X11 #
