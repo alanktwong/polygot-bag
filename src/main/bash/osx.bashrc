@@ -3,7 +3,6 @@
 
 echo "starting .bashrc"
 
-alias reload="source $HOME/.bashrc"
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then

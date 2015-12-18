@@ -15,7 +15,7 @@ echo "setting aliases with .bash_aliases"
 # examples.
 #
 #===============================================================
-
+alias reload="source $HOME/.bashrc"
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
