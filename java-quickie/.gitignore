@@ -8,3 +8,6 @@ build/
 
 *.class
 *.jar
+*.iml
+*.ipr
+*.iws
