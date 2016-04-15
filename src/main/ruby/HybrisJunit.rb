@@ -11,7 +11,7 @@ require 'yaml'
 
 module HybrisJUnit
   # Defines the available configuration options for the configuration
-  ConfigurationStruct = Struct.new(:both, :unit, :package, :required, :all, :all_extensions, :all_packages, :verbose, :webExtensions, :enabled)
+  ConfigurationStruct = Struct.new(:both, :unit, :web, :package, :required, :all, :all_extensions, :all_packages, :verbose, :webExtensions, :enabled)
 
   class Configuration
     include Singleton
@@ -23,6 +23,7 @@ module HybrisJUnit
     # @@config.enum = :one
     @@config.both = []
     @@config.unit = []
+    @@config.web = []
     @@config.package = []
     @@config.all_extensions = {}
     @@config.all_packages = {}
@@ -87,9 +88,6 @@ module HybrisJUnit
         end
       end
       self.run_impl!("ant clean all yunitinit alltests -Dtestclasses.extensions=" + _selectionJoin)
-      _selection = self.webExtensions
-      _webJoin = self.webExtensions.join(",")
-      self.run_impl!("ant clean all yunitinit alltests -Dtestclasses.web=true -Dtestclasses.extensions=" + _webJoin)
     end
 
     def self.select_extensions(indices)
@@ -107,6 +105,17 @@ module HybrisJUnit
         end
       end
       self.run_impl!("ant clean all yunitinit alltests -Dtestclasses.extensions=" + _selectionJoin)
+    end
+
+    def self.run_web_extensions!
+      _selection = self.select_extensions(self.web)
+      _selectionJoin = _selection.join(",")
+      if self.verbose
+        puts "should execute both integration/unit tests on web extensions: " + _selectionJoin
+        if self.includesWebTests(_selection)
+          puts "some of the selected extensions include web/testsrc"
+        end
+      end
       _selection = self.webExtensions
       _webJoin = self.webExtensions.join(",")
       self.run_impl!("ant clean all yunitinit alltests -Dtestclasses.web=true -Dtestclasses.extensions=" + _webJoin)
@@ -122,9 +131,6 @@ module HybrisJUnit
         end
       end
       self.run_impl!("ant clean all unittests -Dtestclasses.extensions=" + _selectionJoin)
-      _selection = self.webExtensions
-      _webJoin = self.webExtensions.join(",")
-      self.run_impl!("ant clean all yunitinit alltests -Dtestclasses.web=true -Dtestclasses.extensions=" + _webJoin)
     end
 
     def self.select_packages(indices)
@@ -160,6 +166,8 @@ module HybrisJUnit
       else
         if self.both.any? && self.all_extensions.any?
           run_both!
+        elsif self.web.any? && self.all_extensions.any? && self.webExtensions.any?
+          run_web_extensions!
         elsif self.unit.any? && self.all_extensions.any?
           run_unit_extensions!
         elsif self.package.any? && self.all_packages.any?
@@ -191,6 +199,10 @@ module HybrisJUnit
 
         parser.on("-b", "--both 0,1,...", Array, "Run both integration/unit tests on a list of extensions defined in junit_cfg.yml", "as an array under the property called all_extensions.", "Extensions to run are selected by a 0-based index.") do |setting|
           Configuration.both = setting
+        end
+
+        parser.on("-w", "--web 0,1,...", Array, "Run both integration/unit tests on a list of web extensions defined in junit_cfg.yml", "as an array under the property called all_extensions as well as in webExtensions.", "Extensions to run are selected by a 0-based index.") do |setting|
+          Configuration.web = setting
         end
 
         parser.on("-u", "--unit 0,1,...", Array, "Run unit tests on a list of extensions defined in junit_cfg.yml", "as an array under the property called all_extensions", "Extensions to run are selected by a 0-based index.") do |setting|
