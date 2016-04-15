@@ -6,114 +6,114 @@ sourceCompatibility = 1.7
 version = '0.0.1.0-SNAPSHOT'
 
 jar {
-	manifest {
-		attributes  'Implementation-Title': 'Java-Quickie',
-					'Implementation-Version': version
-	}
+    manifest {
+        attributes  'Implementation-Title': 'Java-Quickie',
+                    'Implementation-Version': version
+    }
 }
 
 repositories {
-	mavenCentral()
-	jcenter()
-	
-	maven {
-		url "http://maven.springframework.org/milestone"
-	}
-	maven {
-		url "http://download.oracle.com/maven"
-	}
-	maven {
-		url "http://download.java.net/maven/glassfish"
-	}
-	maven {
-		url "http://download.java.net/maven/2"
-	}
+    mavenCentral()
+    jcenter()
+    
+    maven {
+        url "http://maven.springframework.org/milestone"
+    }
+    maven {
+        url "http://download.oracle.com/maven"
+    }
+    maven {
+        url "http://download.java.net/maven/glassfish"
+    }
+    maven {
+        url "http://download.java.net/maven/2"
+    }
 }
 
 dependencies {
-	def springVersion = '3.2.10.RELEASE'
-	def slf4jVersion = '1.6.1'
-	def aspectjVersion = '1.6.10'
-	
-	/*
-	compile ("commons-collections:commons-collections:3.2")
-	compile ("commons-lang:commons-lang:2.6")
-	compile ("commons-io:commons-io:2.0.1")
-	compile ("joda-time:joda-time:1.6.2")
-	compile ("org.joda:joda-money:0.9.1")
-	compile ("com.google.guava:guava:12.0")
-	*/
-	
-	// compile ("org.hibernate:hibernate-core:3.6.7.Final")
-	/*
-	compile ("org.springframework:spring-tx:$springVersion"){
-		exclude group: "commons-logging"
-	}
-	compile ("org.springframework:spring-orm:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	compile ("org.springframework:spring-aop:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	compile ("org.springframework:spring-aspects:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	compile ("org.springframework:spring-context:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	compile ("org.springframework:spring-expression:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	compile ("org.springframework:spring-instrument:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	compile ("org.springframework:spring-instrument-tomcat:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	compile ("org.springframework:spring-jdbc:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	compile ("org.springframework:spring-jms:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	compile ("org.springframework:spring-oxm:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	compile ("org.springframework:spring-webmvc:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	compile ("org.aspectj:aspectjrt:$aspectjVersion")
-	testCompile ("org.springframework:spring-test:$springVersion") {
-		exclude group: "commons-logging"
-	}
-	*/
-	
-	/*
-	compile ("org.slf4j:slf4j-api:$slf4jVersion")
-	compile ("org.slf4j:jcl-over-slf4j:$slf4jVersion")
-	compile ("org.slf4j:slf4j-log4j12:$slf4jVersion")
-	compile ("log4j:log4j:1.2.16")
-	compile ("ch.qos.logback:logback-classic:1.1.2")
-	*/
-	/*
-	compile ("javax.inject:javax.inject:1")
-	compile ("javax.servlet:servlet-api:2.5")
-	compile ("javax.servlet.jsp:jsp-api:2.1")
-	compile ("javax.servlet.jsp.jstl:jstl-api:1.2")
-	compile ("javax.jms:jms-api:1.1-rev-1")
-	*/
-	
-	testCompile ("junit:junit:4.8+")
+    def springVersion = '3.2.10.RELEASE'
+    def slf4jVersion = '1.6.1'
+    def aspectjVersion = '1.6.10'
+    
+    /*
+    compile ("commons-collections:commons-collections:3.2")
+    compile ("commons-lang:commons-lang:2.6")
+    compile ("commons-io:commons-io:2.0.1")
+    compile ("joda-time:joda-time:1.6.2")
+    compile ("org.joda:joda-money:0.9.1")
+    compile ("com.google.guava:guava:12.0")
+    */
+    
+    // compile ("org.hibernate:hibernate-core:3.6.7.Final")
+    /*
+    compile ("org.springframework:spring-tx:$springVersion"){
+        exclude group: "commons-logging"
+    }
+    compile ("org.springframework:spring-orm:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    compile ("org.springframework:spring-aop:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    compile ("org.springframework:spring-aspects:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    compile ("org.springframework:spring-context:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    compile ("org.springframework:spring-expression:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    compile ("org.springframework:spring-instrument:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    compile ("org.springframework:spring-instrument-tomcat:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    compile ("org.springframework:spring-jdbc:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    compile ("org.springframework:spring-jms:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    compile ("org.springframework:spring-oxm:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    compile ("org.springframework:spring-webmvc:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    compile ("org.aspectj:aspectjrt:$aspectjVersion")
+    testCompile ("org.springframework:spring-test:$springVersion") {
+        exclude group: "commons-logging"
+    }
+    */
+    
+    /*
+    compile ("org.slf4j:slf4j-api:$slf4jVersion")
+    compile ("org.slf4j:jcl-over-slf4j:$slf4jVersion")
+    compile ("org.slf4j:slf4j-log4j12:$slf4jVersion")
+    compile ("log4j:log4j:1.2.16")
+    compile ("ch.qos.logback:logback-classic:1.1.2")
+    */
+    /*
+    compile ("javax.inject:javax.inject:1")
+    compile ("javax.servlet:servlet-api:2.5")
+    compile ("javax.servlet.jsp:jsp-api:2.1")
+    compile ("javax.servlet.jsp.jstl:jstl-api:1.2")
+    compile ("javax.jms:jms-api:1.1-rev-1")
+    */
+    
+    testCompile ("junit:junit:4.8+")
 }
 
 test {
-	systemProperties 'property': 'value'
+    systemProperties 'property': 'value'
 }
 
 uploadArchives {
-	repositories {
-		flatDir {
-			dirs 'repos'
-		}
-	}
+    repositories {
+        flatDir {
+            dirs 'repos'
+        }
+    }
 }
