@@ -11,7 +11,7 @@ require 'yaml'
 
 module HybrisJUnit
   # Defines the available configuration options for the configuration
-  ConfigurationStruct = Struct.new(:both, :unit, :web, :package, :required, :all, :all_extensions, :all_packages, :verbose, :webExtensions, :enabled)
+  ConfigurationStruct = Struct.new(:both, :unit, :web, :package, :required, :all, :test, :all_extensions, :all_packages, :verbose, :webExtensions, :enabled)
 
   class Configuration
     include Singleton
@@ -28,6 +28,7 @@ module HybrisJUnit
     @@config.all_extensions = {}
     @@config.all_packages = {}
     @@config.all = nil
+    @@config.test = nil
     @@config.required = "vacuously-true"
     @@config.verbose = false
     @@config.enabled = true
@@ -95,6 +96,11 @@ module HybrisJUnit
       _selection = _extensions.map { |b| self.all_extensions[b] }.compact
     end
 
+    def self.select_packages(indices)
+      _packages = indices.map { |a| a.to_i }
+      _selection = _packages.map { |b| self.all_packages[b] }.compact
+    end
+
     def self.run_both!
       _selection = self.select_extensions(self.both)
       _selectionJoin = _selection.join(",")
@@ -133,13 +139,13 @@ module HybrisJUnit
       self.run_impl!("ant clean all unittests -Dtestclasses.extensions=" + _selectionJoin)
     end
 
-    def self.select_packages(indices)
-      _packages = indices.map { |a| a.to_i }
-      _selection = _packages.map { |b| self.all_packages[b] }.compact
-    end
-
     def self.run_unit_packages!
-      _selection = self.select_packages(self.package)
+      _selection = []
+      if self.package.any?
+        _selection = self.select_packages(self.package)
+      else
+        _selection = self.all_packages
+      end
       _selectionJoin = _selection.join(",")
       if self.verbose
         puts "should execute unit tests on package: " + _selectionJoin
@@ -161,7 +167,10 @@ module HybrisJUnit
       puts "Running ant .... "
       puts "==================================="
 
-      if self.all
+
+      if self.test
+        run_unit_packages!
+      elsif self.all
         run_all!
       else
         if self.both.any? && self.all_extensions.any?
@@ -188,7 +197,6 @@ module HybrisJUnit
     end
     def self.parse(args)
       opts = OptionParser.new do |parser|
-
         parser.separator title
         parser.separator ""
         parser.separator "Specific options:"
@@ -206,6 +214,7 @@ module HybrisJUnit
         end
 
         parser.on("-u", "--unit 0,1,...", Array, "Run unit tests on a list of extensions defined in junit_cfg.yml", "as an array under the property called all_extensions", "Extensions to run are selected by a 0-based index.") do |setting|
+
           Configuration.unit = setting
         end
 
@@ -221,8 +230,14 @@ module HybrisJUnit
           Configuration.enabled = setting
         end
 
+        parser.on("-t","--test", "Run all tests in all packages defined in junit_cfg.yml", "as an array under the property called all_packages") do |setting|
+          Configuration.test = setting
+          Configuration.all = false
+        end
+
         parser.on("-a","--all", "Run all tests in all extensions defined in junit_cfg.yml", "as an array under the property called all_extensions") do |setting|
           Configuration.all = setting
+          Configuration.test = false
         end
 
         # parser.on("-r", "--required STR", "This command requires a string to be passed to it.") do |setting|
