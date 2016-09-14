@@ -214,7 +214,6 @@ module HybrisJUnit
         end
 
         parser.on("-u", "--unit 0,1,...", Array, "Run unit tests on a list of extensions defined in junit_cfg.yml", "as an array under the property called all_extensions", "Extensions to run are selected by a 0-based index.") do |setting|
-
           Configuration.unit = setting
         end
 
