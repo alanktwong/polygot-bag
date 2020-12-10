@@ -9,3 +9,4 @@ ssh_menu.xml
 .classpath
 .project
 chef_config.json
+.DS_Store
